@@ -62,10 +62,47 @@ getPaintingsFromAuthor(author){
     });
     return temp;
 }
+getAllPaintings(){
+    let authors = [];
+    this.paintings.forEach(element => {
+        authors.push(element.getAuthorOfPainting());    
+    });
 
+    console.log(authors);
+    let temp = new Map();
+    for(let i = 0; i< authors.length;i++){
+        
+       for(let j = 0; j<this.paintings.length;j++){
+
+        if(this.paintings[j].getAuthorOfPainting() === authors[i]){
+            console.log(temp.set(authors[i],this.paintings[j]));
+        }
+            
+        }
+    }
+   
+ 
+  return temp;
 }
+    
+}
+let galerry2 = new Galerry();
+const form = document.querySelector('form');
+form.addEventListener('submit', (e) => {
+ 
+  e.preventDefault();
+ 
+  const authorName = document.querySelector('#authorName').value;
+  const paintingName = document.querySelector('#paintingName').value;
+  const paintingPrice = document.querySelector('#paintingPrice').value;
+  const paintingYear = document.querySelector('#paintingYear').value;
+  let stringArray = authorName.split(/(\s+)/);
+  let authorFistname = stringArray[0];
+  let authorSurname = stringArray[1];
 
-
+  galerry2.addPainting(new Painting(new Author(authorFistname,authorSurname),paintingName,paintingPrice,paintingYear));
+  form.reset();
+});
 let galerry = new Galerry();
 
 let author1 = new Author("John","Doe");
@@ -83,8 +120,15 @@ galerry.addPainting(painting1);
 galerry.addPainting(painting2);
 galerry.addPainting(painting3);
 galerry.addPainting(painting4);
-console.log(galerry);
-console.log(galerry.getPaintingsFromAuthor(author1));
+//console.log(galerry);
+//console.log(galerry.getPaintingsFromAuthor(author1));
 
+console.log(galerry.getAllPaintings());
+
+
+
+
+console.log("///////////////////////////////////////////////////////////");
+console.log(galerry2);
 
 
